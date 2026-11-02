@@ -1,4 +1,4 @@
-import { useState, type ReactNode } from 'react'
+import { useEffect, useState, type ReactNode } from 'react'
 import {
   Apple,
   Heart,
@@ -23,14 +23,69 @@ const initialStats: PetStats = {
   hygiene: 85,
 }
 
+
+const STORAGE_KEY = 'pocket-pet-save'
+
+type SavedGame = {
+  stats: PetStats
+  message: string
+}
+
+function loadGame(): SavedGame | null {
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY)
+
+    if (!saved) return null
+
+    const parsed = JSON.parse(saved) as SavedGame
+
+    if (
+      !parsed.stats ||
+      !['hunger', 'happiness', 'energy', 'hygiene'].every(
+        (key) => {
+          const value = parsed.stats[key as keyof PetStats]
+          return typeof value === 'number' &&
+            Number.isFinite(value) &&
+            value >= 0 &&
+            value <= 100
+        }
+      )
+    ) {
+      return null
+    }
+
+    return parsed
+  } catch {
+    return null
+  }
+}
+
+
 const clamp = (value: number) =>
   Math.min(100, Math.max(0, value))
 
 function App() {
-  const [stats, setStats] = useState<PetStats>(initialStats)
-  const [message, setMessage] = useState(
-    'Hello! I am Biscuit! 🐣'
+  const [savedGame] = useState(loadGame)
+
+  const [stats, setStats] = useState<PetStats>(
+    () => savedGame?.stats ?? initialStats
   )
+
+  const [message, setMessage] = useState(
+    () => savedGame?.message ?? 'Hello! I am Biscuit! 🐣'
+  )
+
+  useEffect(() => {
+    const game: SavedGame = {
+      stats,
+      message,
+    }
+
+    localStorage.setItem(
+      STORAGE_KEY,
+      JSON.stringify(game)
+    )
+  }, [stats, message])
 
   const performAction = (action: ActionType) => {
     setStats((current) => {
