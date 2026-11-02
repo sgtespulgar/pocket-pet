@@ -1,0 +1,296 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap');
+
+:root {
+  font-family: 'Nunito', sans-serif;
+  color: #59463f;
+  background: #f8eee5;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+button {
+  font: inherit;
+}
+
+.game-container {
+  width: min(100%, 520px);
+  min-height: 100vh;
+  margin: auto;
+  padding: 24px 20px;
+  background: #fffaf5;
+}
+
+.game-header,
+.pet-info,
+.need-heading,
+.coin-display {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.eyebrow {
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  color: #c28d78;
+  margin: 0;
+}
+
+.game-header h1 {
+  font-size: 26px;
+  margin: 2px 0 18px;
+  font-weight: 900;
+}
+
+.game-header h1 span {
+  color: #ee8798;
+}
+
+.coin-display {
+  gap: 7px;
+  padding: 9px 14px;
+  border: 2px solid #f3dfc9;
+  border-radius: 14px;
+  color: #bb853b;
+  font-weight: 900;
+}
+
+.pet-card {
+  background: #f9e8dc;
+  border: 3px solid #efd6c6;
+  border-radius: 22px;
+  padding: 18px;
+}
+
+.pet-info h2 {
+  font-size: 20px;
+  margin: 0;
+}
+
+.pet-info p {
+  color: #a88a7e;
+  font-size: 12px;
+  margin: 3px 0 0;
+}
+
+.pet-mood {
+  background: #fff7e3;
+  padding: 7px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 800;
+  color: #c38d3c;
+}
+
+.pet-room {
+  height: 260px;
+  margin-top: 15px;
+  background: #f5d7c4;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.pet-room::before {
+  content: '';
+  position: absolute;
+  bottom: 32px;
+  width: 100%;
+  height: 45px;
+  background: #e8bba2;
+}
+
+.pet-sprite {
+  width: 145px;
+  height: 145px;
+  position: relative;
+  z-index: 2;
+  image-rendering: pixelated;
+  animation: bounce 2s ease-in-out infinite;
+}
+
+.pet-shadow {
+  position: absolute;
+  bottom: 28px;
+  width: 85px;
+  height: 12px;
+  background: #c9917c;
+  border-radius: 50%;
+}
+
+.room-cloud {
+  position: absolute;
+  top: 35px;
+  left: 40px;
+  color: #fff8e8;
+  font-size: 30px;
+}
+
+.room-cloud.second {
+  left: auto;
+  right: 45px;
+  top: 75px;
+}
+
+.pet-message {
+  position: absolute;
+  bottom: 4px;
+  z-index: 3;
+  color: #986d60;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.needs-section,
+.actions-section {
+  margin-top: 24px;
+}
+
+.needs-section h3,
+.actions-section h3 {
+  font-size: 15px;
+  margin: 0 0 13px;
+}
+
+.needs-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.need-card {
+  background: #fff3e9;
+  border-radius: 14px;
+  padding: 13px;
+}
+
+.need-heading {
+  justify-content: flex-start;
+  gap: 7px;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.need-icon {
+  display: flex;
+}
+
+.need-icon svg {
+  width: 15px;
+  height: 15px;
+}
+
+.progress-track {
+  height: 8px;
+  background: #eadfd8;
+  border-radius: 20px;
+  overflow: hidden;
+  margin-top: 12px;
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: 20px;
+}
+
+.progress-fill.orange { background: #edb45e; }
+.progress-fill.pink { background: #e78fa6; }
+.progress-fill.blue { background: #8eabe5; }
+.progress-fill.green { background: #83b99a; }
+
+.need-card small {
+  display: block;
+  text-align: right;
+  margin-top: 5px;
+  font-size: 10px;
+  font-weight: 800;
+  color: #9c8175;
+}
+
+.orange { color: #d89b43; }
+.pink { color: #df849b; }
+.blue { color: #819bd4; }
+.green { color: #75a98b; }
+
+.action-button {
+  border: 0;
+  border-radius: 14px;
+  padding: 14px 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: 900;
+  transition: transform 0.15s;
+}
+
+.action-button:active {
+  transform: scale(0.94);
+}
+
+.action-button svg {
+  width: 22px;
+  height: 22px;
+}
+
+.actions-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 9px;
+}
+
+.action-button.orange { background: #fff0d9; }
+.action-button.pink { background: #fce5eb; }
+.action-button.green { background: #e5f2e7; }
+.action-button.blue { background: #e8edfa; }
+
+.game-footer {
+  margin-top: 28px;
+  padding: 15px 0;
+  border-top: 1px solid #f1e6de;
+  display: flex;
+  justify-content: space-between;
+  color: #b59a8c;
+  font-size: 10px;
+  font-weight: 800;
+}
+
+@media (max-width: 360px) {
+  .game-container {
+    padding: 18px 12px;
+  }
+
+  .actions-grid {
+    gap: 6px;
+  }
+
+  .action-button {
+    font-size: 10px;
+  }
+}
