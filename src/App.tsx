@@ -1,121 +1,88 @@
-import {
-  Apple,
-  Heart,
-  Moon,
-  Sparkles,
-  Gamepad2,
-  Coins
-} from 'lucide-react'
-
+import { useState, type ReactNode } from 'react'
+import { Apple, Heart, Moon, Sparkles, Gamepad2 } from 'lucide-react'
 import PetSprite from './components/PetSprite'
 
 function App() {
+  const [message, setMessage] = useState('Hello! I am Biscuit! 🐣')
+
   return (
     <main className="game-container">
       <header className="game-header">
         <div>
-          <p className="eyebrow">MY LITTLE WORLD</p>
-          <h1>Pocket Pet <span>♥</span></h1>
+          <span className="eyebrow">MY LITTLE FRIEND</span>
+          <h1>Pocket Pet</h1>
         </div>
-
-        <div className="coin-display">
-          <Coins size={18} />
-          <span>20</span>
-        </div>
+        <div className="coin-display">🪙 100</div>
       </header>
 
       <section className="pet-card">
         <div className="pet-info">
           <div>
             <h2>Biscuit</h2>
-            <p>Baby · Day 1</p>
+            <p>Baby · Level 1</p>
           </div>
-          <span className="pet-mood">Happy!</span>
+          <span className="pet-status">● Happy</span>
         </div>
 
-        <div className="pet-room">
-          <div className="room-cloud">✦</div>
-          <div className="room-cloud second">✧</div>
-
+        <div className="pet-scene">
+          <div className="sun-decoration">☀</div>
           <PetSprite />
+          <div className="ground-decoration">✿　✿　✿</div>
+        </div>
 
-          <div className="pet-shadow" />
-
-          <p className="pet-message">Hello, friend!</p>
+        <div className="pet-message">
+          {message}
         </div>
       </section>
 
       <section className="needs-section">
         <h3>How am I feeling?</h3>
 
-        <div className="needs-grid">
-          <Need icon={<Apple />} label="Hunger" value={80} color="orange" />
-          <Need icon={<Heart />} label="Happiness" value={90} color="pink" />
-          <Need icon={<Moon />} label="Energy" value={70} color="blue" />
-          <Need icon={<Sparkles />} label="Cleanliness" value={85} color="green" />
-        </div>
+        <Need label="Hunger" value={80} emoji="🍎" />
+        <Need label="Happiness" value={90} emoji="💗" />
+        <Need label="Energy" value={75} emoji="⚡" />
+        <Need label="Hygiene" value={85} emoji="🛁" />
       </section>
 
       <section className="actions-section">
-        <h3>Take care of me!</h3>
+        <h3>Take care of Biscuit</h3>
 
         <div className="actions-grid">
-          <Action icon={<Apple />} label="Feed" color="orange" />
-          <Action icon={<Gamepad2 />} label="Play" color="pink" />
-          <Action icon={<Sparkles />} label="Clean" color="green" />
-          <Action icon={<Moon />} label="Sleep" color="blue" />
+          <Action icon={<Apple />} label="Feed" onClick={() => setMessage('Yummy! Thank you! 🍎')} />
+          <Action icon={<Heart />} label="Play" onClick={() => setMessage('Yay! That was fun! 💗')} />
+          <Action icon={<Sparkles />} label="Clean" onClick={() => setMessage('I feel so fresh! ✨')} />
+          <Action icon={<Moon />} label="Sleep" onClick={() => setMessage('Goodnight! Zzz... 🌙')} />
         </div>
       </section>
 
-      <footer className="game-footer">
-        <span>♡ Made with love</span>
-        <span>POCKET PET v0.1</span>
-      </footer>
+      <footer>Made with ♥ for your little friend</footer>
     </main>
   )
 }
 
-function Need({
-  icon,
-  label,
-  value,
-  color
-}: {
-  icon: React.ReactNode
+function Need({ label, value, emoji }: {
   label: string
   value: number
-  color: string
+  emoji: string
 }) {
   return (
-    <div className="need-card">
-      <div className="need-heading">
-        <span className={`need-icon ${color}`}>{icon}</span>
-        <span>{label}</span>
-      </div>
-
+    <div className="need-row">
+      <span>{emoji} {label}</span>
       <div className="progress-track">
-        <div
-          className={`progress-fill ${color}`}
-          style={{ width: `${value}%` }}
-        />
+        <div className="progress-fill" style={{ width: `${value}%` }} />
       </div>
-
-      <small>{value}%</small>
+      <span>{value}%</span>
     </div>
   )
 }
 
-function Action({
-  icon,
-  label,
-  color
-}: {
-  icon: React.ReactNode
+function Action({ icon, label, onClick }: {
+  icon: ReactNode
   label: string
-  color: string
+  onClick: () => void
 }) {
   return (
-    <button className={`action-button ${color}`} type="button">
+    <button className="action-button" onClick={onClick}>
       {icon}
       <span>{label}</span>
     </button>
